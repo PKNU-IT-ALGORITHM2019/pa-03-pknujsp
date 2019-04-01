@@ -1,5 +1,6 @@
 package sort;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class sort
@@ -33,6 +34,7 @@ public class sort
 		avgBubble(randomint, high);
 		Bubble(reverse_100000);
 		System.out.println();
+
 		System.out.print("Selection       ");
 		avgSelection(randomint, low);
 		Selection(reverse_1000);
@@ -41,6 +43,7 @@ public class sort
 		avgSelection(randomint, high);
 		Selection(reverse_100000);
 		System.out.println();
+
 		System.out.print("Insertion       ");
 		avgInsertion(randomint, low);
 		Insertion(reverse_1000);
@@ -49,6 +52,7 @@ public class sort
 		avgInsertion(randomint, high);
 		Insertion(reverse_100000);
 		System.out.println();
+
 		System.out.print("Merge           ");
 		avgMerge(randomint, low);
 		Merge(reverse_1000);
@@ -57,6 +61,7 @@ public class sort
 		avgMerge(randomint, high);
 		Merge(reverse_100000);
 		System.out.println();
+
 		System.out.print("Quick1          ");
 		avgQuick_1(randomint, low);
 		Quick_1(reverse_1000);
@@ -65,6 +70,7 @@ public class sort
 		avgQuick_1(randomint, high);
 		Quick_1(reverse_100000);
 		System.out.println();
+
 		System.out.print("Quick2          ");
 		avgQuick_2(randomint, low);
 		Quick_2(reverse_1000);
@@ -73,6 +79,7 @@ public class sort
 		avgQuick_2(randomint, high);
 		Quick_2(reverse_100000);
 		System.out.println();
+
 		System.out.print("Quick3          ");
 		avgQuick_3(randomint, low);
 		Quick_3(reverse_1000);
@@ -81,6 +88,25 @@ public class sort
 		avgQuick_3(randomint, high);
 		Quick_3(reverse_100000);
 		System.out.println();
+
+		System.out.print("Heap            ");
+		avgHeap(randomint, low);
+		Heap(reverse_1000);
+		avgHeap(randomint, mid);
+		Heap(reverse_10000);
+		avgHeap(randomint, high);
+		Heap(reverse_100000);
+		System.out.println();
+
+		System.out.print("Library         ");
+		avgLibrary(randomint, low);
+		Library(reverse_1000);
+		avgLibrary(randomint, mid);
+		Library(reverse_10000);
+		avgLibrary(randomint, high);
+		Library(reverse_100000);
+		System.out.println();
+
 		System.out.println(
 				"-----------------------------------------------------------------------------------------------------");
 
@@ -483,6 +509,125 @@ public class sort
 		double elapsed_time = EndCalc();
 		System.out.print(elapsed_time + "         ");
 		quick_3 = null;
+	}
+
+	static private void avgLibrary(random_int[] randomint, int size)
+	{
+
+		double total_time = 0.0;
+
+		switch (size)
+		{
+		case low:
+			for (int i = 0; i < 10; i++)
+			{
+				int[] forsort = randomint[i].random_1000;
+				StartCalc();
+				Arrays.sort(forsort);
+				double elapsed_time = EndCalc();
+				total_time = total_time + elapsed_time;
+			}
+			break;
+
+		case mid:
+			for (int i = 0; i < 10; i++)
+			{
+				int[] forsort = randomint[i].random_10000;
+				StartCalc();
+				Arrays.sort(forsort);
+				double elapsed_time = EndCalc();
+				total_time = total_time + elapsed_time;
+			}
+			break;
+
+		case high:
+			for (int i = 0; i < 10; i++)
+			{
+				int[] forsort = randomint[i].random_100000;
+				StartCalc();
+				Arrays.sort(forsort);
+				double elapsed_time = EndCalc();
+				total_time = total_time + elapsed_time;
+			}
+			break;
+		}
+
+		double avg_time = total_time / 10;
+		System.out.print(Math.round(avg_time * 1000) / 1000.0 + "         ");
+	}
+
+	static private void Library(int[] values) // Library
+	{
+		int[] forsort = values;
+		StartCalc();
+		Arrays.sort(forsort);
+		double elapsed_time = EndCalc();
+		System.out.print(elapsed_time + "         ");
+		forsort = null;
+	}
+
+	static private void avgHeap(random_int[] randomint, int size)
+	{
+
+		double total_time = 0.0;
+
+		switch (size)
+		{
+		case low:
+			for (int i = 0; i < 10; i++)
+			{
+				ArrayMinHeap minheap = new ArrayMinHeap();
+				minheap.createArrayMinHeap(low);
+				StartCalc();
+				for (int j = 0; j < low; j++)
+					minheap.insertMinHeapAH(randomint[i].random_1000[j]);
+
+				double elapsed_time = EndCalc();
+				total_time = total_time + elapsed_time;
+			}
+			break;
+
+		case mid:
+			for (int i = 0; i < 10; i++)
+			{
+				ArrayMinHeap minheap = new ArrayMinHeap();
+				minheap.createArrayMinHeap(mid);
+				StartCalc();
+				for (int j = 0; j < low; j++)
+					minheap.insertMinHeapAH(randomint[i].random_10000[j]);
+				double elapsed_time = EndCalc();
+				total_time = total_time + elapsed_time;
+			}
+			break;
+
+		case high:
+			for (int i = 0; i < 10; i++)
+			{
+				ArrayMinHeap minheap = new ArrayMinHeap();
+				minheap.createArrayMinHeap(high);
+				StartCalc();
+				for (int j = 0; j < low; j++)
+					minheap.insertMinHeapAH(randomint[i].random_100000[j]);
+				double elapsed_time = EndCalc();
+				total_time = total_time + elapsed_time;
+			}
+			break;
+		}
+
+		double avg_time = total_time / 10;
+		System.out.print(Math.round(avg_time * 1000) / 1000.0 + "         ");
+	}
+
+	static private void Heap(int[] values) // Heap
+	{
+		ArrayMinHeap minheap = new ArrayMinHeap();
+		minheap.createArrayMinHeap(values.length);
+		StartCalc();
+		for (int i = 0; i < values.length; i++)
+			minheap.insertMinHeapAH(values[i]);
+		double elapsed_time = EndCalc();
+		System.out.print(elapsed_time + "         ");
+	
 	}
 
 	static private void StartCalc()
